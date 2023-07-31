@@ -347,3 +347,132 @@ for d in unis:
 f.close()
 
 ```
+
+## 19
+利用random库和turtle库在屏幕上画三个黑色的正方形，正方形左下角坐标和边长由randint()函数产生，参数在代码中给出。效果如下图：
+![](./images/19.png)
+
+```
+import random as r
+import turtle as t
+
+r.seed(1)
+t.pensize(2)
+for i in range(3):
+    length = r.randint(20, 80)
+    x0 = r.randint(-100, 100)
+    y0 = r.randint(-100, 100)
+
+    t.penup()
+    t.goto(x0, y0)
+    t.pendown()
+    for j in range(4):
+        t.fd(length)
+        t.seth(90*(j+1))
+t.done()
+
+```
+## 20
+原始资料不齐，略
+
+## 21
+让用户输入一首诗的文本，内部包含中文逗号和句号。
+(1)用jieba厚的精确模式对输入文本分词。將分词后的词语输出并以“/"分隔；
+统计中文词语数并输出；
+(2)以逗号和句号将输入文本分隔成单句并输出，每句一行，每行20个字符宽，居中对齐。
+在(1)和（2）的输出之间，增加一个空行。
+示例如下（其中据仅用于示意）。
+输入：
+> 月亮河宽宽的河，一天我从你身旁过。
+
+输出：
+> 月亮/河/宽宽的/河/一天/我／从/你/身旁/过/  
+> 中文词语数是：10  
+>
+>     月亮河宽宽的河  
+>     一天我从你身旁过
+
+```
+import jieba
+
+s = input("请输入一段中文文本，句子之间以逗号或句号分隔：")
+slist = jieba.lcut(s)
+m = 0
+
+for i in slist:
+    if i in "，。":
+        continue
+    print(i, end='/')
+    m += 1
+
+print("\n中文词语数是：{}\n".format(m))
+
+s = ''
+for i in slist:
+    if i in "，。":
+        print('{:^20}'.format(s))
+        s = ''
+        continue
+    s += i
+
+```
+## 23
+使用turtle库函数绘制4个等距排列的正方形，边长为像间距宽度为如。
+最左边的正方形左上角坐标为(0,0)。
+
+```
+import turtle
+n = 4
+for j in range(n):
+    turtle.pendown()
+    for i in range(4):
+        turtle.fd(40)
+        turtle.right(90)
+    turtle.penup()
+    turtle.fd(80)
+turtle.done()
+```
+
+
+## 24
+
+实现以下功能：
+(1)定义一个列表`persons`，里面有一些名字字符串；
+(2)在该列表中查找用户输入的一个名字字符串，如果找到，则生成一个四位数字的随机数组成的验证码，输出找到的名字字符串和验证码；如果找不到该字符串，则输出捏示信息“对不起，您输入的名字不存在。”，如果用户输入一个字母`q`则退出程序；
+(3)显示提示信息后，再次显示“请输入一个名”，提示用户输入，重复执行步骤(2)；执行3次后自动退出程序。
+示例如下（其中数据仅用于示意）：
+
+输入：
+> A1ice
+
+输出：  
+> A1ice 1001
+
+输入：
+
+> bob
+
+输出：
+
+> 对不起，您输入的名字不存在·
+
+输入：
+> q
+程序自动退出
+
+```
+import random as r
+r.seed(0)
+persons = ['Aele', 'Bob','lala', 'baicai']
+flag = 3
+while flag>0:
+    flag -= 1
+    name = input("请输入一个名字：")
+    if name in persons:
+        num = r.randint(1000,9999)
+        print('{} {}'.format(name, num))
+    elif name == 'q':
+        break
+    elif name not in persons:
+        print('对不起，您输入的名字不存在。')
+```
