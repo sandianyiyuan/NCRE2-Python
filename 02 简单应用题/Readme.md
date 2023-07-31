@@ -1,3 +1,14 @@
+## 00 高频内容
+
+将字典转换成集合
+ls = list(d.items())
+集合排序
+字典排序
+sort与lambda结合使用
+ls.sort(key=lambda x: x[1], reverse=True)
+
+
+
 ## 01 
 
 链盘输入一组我国高校所对应的学校类型，以空格分隔，共一行  
@@ -214,4 +225,121 @@ if name in pdict:
     print("{} {} {}".format(name,pdict.get(name)[0],random.randint(1000,9999)))
 else:
     print("对不起，您输入的用户信息不存在。")
+```
+
+## 15
+
+利用random库和turtle库，在屏幕上绘制5个圆圈，圆的半径和圆心的坐标由randint()函数产生，圆心的X和Y坐标范围在[-100,100]之间；半径的大小范围在[20,50]之间，圆圈的颜色随机在color列表里选择。
+效果如下图：
+
+![](./images/15.png)
+
+```
+import random as r
+import turtle as t
+
+color = ['red', 'orange', 'blue', 'green', 'purple']
+r.seed(1)
+for i in range(5):
+    rad = r.randint(20, 50)
+    x0 = r.randint(-100, 100)
+    y0 = r.randint(-100, 100)
+    t.color(r.choice(color))
+    t.penup()
+    t.goto(x0, y0)
+    t.pendown()
+    t.circle(rad)
+t.done()
+
+```
+
+## 16
+* 此题目有问题 *
+定义了一个6个浮点数的一维列表1t1和一个包含3个数的一维列表1t2。
+示例如下：
+1t1=[0.69,0.292,0.33,0.131,0.61,0.254]
+1t2=[0.1,0.8,0.2]
+完成如下功能：
+计算1t1列表跟1t2列表的向量内积,两个向量X:[x1,x2,x3]和Y=[y1,y2,y3]的内积计算公式如下:`k=x1*y1+x2*y2+x3*y3`
+
+将每次计算的两组对应元的值、以及对应元乘积的计和k的值显示在屏幕上，格式如下所
+第一步计算第一个k，分为3次累计1t2[0]*1t1[0+0],1t2[1]*1t1[0+1],1t2[2]*1t1[0+2]的和。
+k=0.069，filter[0]=0.100，img[0+0]=0.690
+k=0.303，filter[1]=0.800，img[0+1]=0.292
+k=0.369，filter[2]=0.200，img[0+2]=0.330
+...(略)
+
+## 17 
+利用random和turtle在屏幕上绘制4个小雪花，雪花的中心点坐标由列表points给出，雪花的半径长度由randint()函数产生。
+雪花的顔色是红色。效果如下图所示。
+![](./images/17.png)
+
+
+```
+import turtle as t
+import random as r
+
+r.seed(1)
+t.pensize(2)
+t.pencolor('red')
+angles = 6
+points= [[0,0],[50,40],[70,80],[-40,30]]
+
+for i in range(4):
+    x0,y0 = points[i]
+    t.penup()
+    t.goto(x0, y0)
+    t.pendown()
+
+    length = r.randint(6, 16)
+    for j in range(angles):
+        t.fd(length)
+        t.bk(length)
+        t.right(360 / angles)
+t.done()
+```
+
+## 18
+在考生文件夹下有个文件`data18.txt`,其中记录了2019年QS全大学排名前20名的学校信息。
+示例如下：
+> 1，麻省理工学院，美国  
+2，斯坦福大学，美国  
+3，哈佛大学，美国
+
+第一列为排名，第2列为学校名称，第3列为学校所属的国家，字段之间用逗号`,`隔开。
+
+程序读取`data18.txt`文件内容，统计出现的国家个数以及每个国家上榜大学的数量及名称，输出结果格式示例如下：
+英国：5：牛津大学 刽桥大学 帝国理工学院 伦敦大学学院 爱丁堡大学
+瑞士：1：苏黎世联邦理工学院
+...
+
+```
+f = open('data18.txt','r')
+
+school = []
+country = []
+for line in f:
+    lines = line.strip('\n').split(",")
+    if lines != ['']:
+        school.append(lines[1:3]) # 构建学校列表
+        country.append(lines[-1]) # 构建国家列表
+        
+country = list(set(country)) # 列表去重复
+
+unis = []
+for i in country:
+    n = 0
+    schools = []
+    result = []
+    for k in school:
+        if k[1] == i:
+            n += 1
+            schools.append(k[0])
+    result = [i, n, schools]
+    unis.append(result)
+
+for d in unis:
+    print('{:>4}: {:>4} : {}'.format(d[0],d[1],''.join(d[2])))
+          
+f.close()
 ```
