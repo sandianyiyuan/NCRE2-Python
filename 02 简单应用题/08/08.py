@@ -1,4 +1,5 @@
 import os
+
 path = os.path.dirname(__file__)
 f = open(path+"/vote.txt")
 names = f.readlines()

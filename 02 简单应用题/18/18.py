@@ -1,4 +1,7 @@
-f = open('data18.txt', 'r')
+import os
+
+path = os.path.dirname(__file__)
+f = open(path+'/data18.txt', 'r', encoding='utf-8')
 
 school = []
 country = []
@@ -23,6 +26,6 @@ for i in country:
     unis.append(result)
 
 for d in unis:
-    print('{:>4}: {:>4} : {}'.format(d[0], d[1], ''.join(d[2])))
+    print('{:>4}: {:>4} : {}'.format(d[0], d[1], ' '.join(d[2])))
 
 f.close()
